@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="s-e-commerce.css">
+    <title>Document</title>
+</head>
+<body>
+  <div id="container" class="container">
+    <div class="text">
+      <p>商品編號</p>
+      <p>商品名稱</p>
+      <p>商品數量</p>
+      <p>商品價格</p>
+      <p>商品類別</p>
+    </div>
+  </div>
+
+  <div id="checkbox-container">
+    <label>
+      <input type="checkbox" id="3C-checkbox"> 3C
+    </label>
+  </div>
+  <ul id="product-list1"></ul>
+  <div id="checkbox-container">
+    <label>
+      <input type="checkbox" id="drink-checkbox"> 飲料
+    </label>
+  </div>
+  <ul id="product-list2"></ul>
+  <div id="checkbox-container">
+    <label>
+      <input type="checkbox" id="food-checkbox"> 食品
+    </label>
+  </div>
+  <ul id="product-list3"></ul>
+
+
+
+  <script type="module">
+    import { product } from "../s-e-commerce-master/product.js";
+
+    let container = document.getElementById("container");
+    let table = document.createElement("table");
+    let thead = document.createElement("thead");
+    let tbody = document.createElement("tbody");
+    
+
+    for(var i=0;i<product.length;i++){
+        let  value = Object.values(product[i]);
+        let tr = document.createElement("tr");
+        value.forEach(item =>{
+            let td = document.createElement("td");
+            td.innerText = item;
+            tr.append(td);
+        })
+        tbody.append(tr);
+    }
+    table.append(tbody);
+    container.append(table);
+
+    const checkbox1 = document.getElementById('3C-checkbox');
+    const productList1 = document.getElementById('product-list1');
+    checkbox1.addEventListener('change', () => {
+      if (checkbox1.checked) {
+        const filteredProducts = product.filter(item => item.ProductType === '3C');
+        productList1.innerHTML = '';
+        filteredProducts.forEach(item => {
+          const li = document.createElement('li');
+          li.textContent = `商品編號:${item.ProductNumber}商品名稱:${item.ProductName}商品數量${item.Amount}商品價格:${item.Price}商品類別:${item.ProductType}`;
+          productList1.appendChild(li);
+        });
+      } else {
+        productList1.innerHTML = '';
+      }
+    });
+
+    const checkbox2 = document.getElementById('drink-checkbox');
+    const productList2 = document.getElementById('product-list2');
+    checkbox2.addEventListener('change', () => {
+      if (checkbox2.checked) {
+        const filteredProducts = product.filter(item => item.ProductType === '飲料');
+        productList2.innerHTML = '';
+        filteredProducts.forEach(item => {
+          const li = document.createElement('li');
+          li.textContent = `商品編號:${item.ProductNumber}商品名稱:${item.ProductName}商品數量${item.Amount}商品價格:${item.Price}商品類別:${item.ProductType}`;
+          productList2.appendChild(li);
+        });
+      } else {
+        productList2.innerHTML = '';
+      }
+    });
+
+    const checkbox3 = document.getElementById('food-checkbox');
+    const productList3 = document.getElementById('product-list3');
+    checkbox3.addEventListener('change', () => {
+      if (checkbox3.checked) {
+        const filteredProducts = product.filter(item => item.ProductType === '食品');
+        productList3.innerHTML = '';
+        filteredProducts.forEach(item => {
+          const li = document.createElement('li');
+          li.textContent = `商品編號:${item.ProductNumber}商品名稱:${item.ProductName}商品數量${item.Amount}商品價格:${item.Price}商品類別:${item.ProductType}`;
+          productList3.appendChild(li);
+        });
+      } else {
+        productList3.innerHTML = '';
+      }
+    });
+    
+    
+</script>
+</body>
+</html>
